@@ -31,7 +31,7 @@ public class DeleteControl extends HttpServlet{
 			String saveFileName = dto.getSfile();
 			FileUtil.deleteFile(req, "/Uploads", saveFileName);
 		}
-		JSFunction.alertLocation(resp, "삭제되었씸", "../board/list.do?b_flag="+b_flag);
+		JSFunction.alertLocation(resp, "삭제되었습니다.", "../board/list.do?b_flag="+b_flag);
 			
 		
 	}

@@ -32,7 +32,7 @@ public class MultiDeleteControl extends HttpServlet{
 		int result = dao.multiDeletePost(idx);
 		dao.close();
 		if (result == 1) {
-			JSFunction.alertLocation(resp, "삭제되었씸", "Multiboard.jsp?b_flag="+b_flag);
+			JSFunction.alertLocation(resp, "삭제되었습니다", "../00Projectboard/Multiboard.jsp?b_flag="+b_flag);
 		}
 	}
 }

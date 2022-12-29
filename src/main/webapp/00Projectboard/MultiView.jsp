@@ -2,6 +2,7 @@
 <%@page import="project.board.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 boardDAO dao = new boardDAO();
 String idx = request.getParameter("idx");
@@ -47,6 +48,7 @@ function deletePost() {
 <div class="col-3"></div>
 <div class="col-6">
 <form name="writeFrm" method="get" class="form-inline">
+    <input type="hidden" name="idx" value="${param.idx }" />
     <input type="hidden" name="b_flag" value="${param.b_flag }" />
     <table class="table" style="text-align: center">
        <tr>
@@ -71,27 +73,23 @@ function deletePost() {
         </tr>
     </table>
              <div class=" d-flex justify-content-center">
-				<% 
-				
-				if(session.getAttribute("UserId") != null
-					&& dto.getId().equals(session.getAttribute("UserId").toString())){
-				%> 
-                    <button type="button" class="btn btn-primary"
-                    	onclick="location.href='../board/multiedit.do?b_flag=${param.b_flag }&idx=${param.idx}';">수정하기
-                    </button>&nbsp
-                    <button type= "button" class="btn btn-primary" 
-                    	onclick="deletePost();">삭제하기
-                    </button>&nbsp
-                  <% 
-					}	
-                	if(session.getAttribute("UserId").equals("admin")){
-               		%>		
-                	<button type= "button" class="btn btn-primary" 
-                    	onclick="deletePost();">삭제하기
-                    </button>&nbsp
-					<%
-              		}
-					%> 
+					<c:if test="${not empty sessionScope.UserId }">
+						<c:choose>
+							<c:when test="${sessionScope.UserId eq 'admin' }">
+								<button type="button" class="btn btn-primary"
+									onclick="deletePost();">삭제하기</button>&nbsp
+							</c:when>
+							<c:otherwise>
+								<c:if test="${sessionScope.UserId != null }">
+									<button type="button" class="btn btn-primary"
+										onclick="location.href='../board/multiedit.do?b_flag=${param.b_flag }&idx=${param.idx}';">수정하기
+									</button>&nbsp
+                    				<button type="button" class="btn btn-primary"
+										onclick="deletePost();">삭제하기</button>&nbsp
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				<button class="btn btn-primary" type="button" onclick="location.href='../00Projectboard/Multiboard.jsp?b_flag=${param.b_flag}';">
                     목록 바로가기
                 </button>

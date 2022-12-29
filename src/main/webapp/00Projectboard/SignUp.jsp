@@ -22,9 +22,9 @@
 <script>
 function validateForm(form) {
 	
-	if(form.id.value==""){
+	if(form.user_id.value==""){
 		alert("아이디를 입력하세요");
-	   form.id.focus();
+	   form.user_id.focus();
 		return false;
 	}
     if (form.passwd1.value == "") {

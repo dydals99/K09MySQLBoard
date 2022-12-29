@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String id = request.getParameter("id");
+String id = request.getParameter("usrId");
 String pass = request.getParameter("passwd1");
 String pass2 = request.getParameter("passwd2");
 String name = request.getParameter("name");

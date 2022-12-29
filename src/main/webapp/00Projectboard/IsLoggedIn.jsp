@@ -9,7 +9,7 @@
 예정이다.
 */
 if(session.getAttribute("UserId") == null){
-	JSFunction.alertLocation("로그인 후 이용해주십시오.","./Login.jsp", out);
+	JSFunction.alertLocation("로그인 후 이용해주십시오.","../00Projectboard/Login.jsp", out);
 	return;
 }
 %>
