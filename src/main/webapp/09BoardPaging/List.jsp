@@ -27,7 +27,7 @@ if (searchWord != null) {
    param.put("searchField", searchField);
    param.put("searchWord", searchWord);
 }
-//Map컬렉션을 인수로 게시물의 갯수를 카운트한다.
+//Map컬렉션을 인수로 게시물의 갯수를 카운트한다.c
 int totalCount = dao.selectCount(param);
 
 /**페이징 코드 추가부분 s************/

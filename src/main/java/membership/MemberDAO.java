@@ -1,30 +1,16 @@
 package membership;
 
-import javax.servlet.ServletContext;
-import common.JDBConnect;
-/*
-DAO(Data Access Object)
-: 실제 데이터베이스에 접근하여 여러가지 CRUD작업을 하기위한 객체
-*/
-public class MemberDAO extends JDBConnect{
-	//생성자 메서드
-	//매개변수가 4개인 부모의 생성자를 호출하여 DB에 연결한다.
-	public MemberDAO(String drv, String url, String id, String pw) {
-		super(drv, url, id, pw);
+
+import java.sql.SQLException;
+
+import common.DBConnPool;
+public class MemberDAO extends DBConnPool{
+	public MemberDAO() {
+		super();
 	}
-	//application 내장객체만 매개변수로 전달한 후 DB에 연결한다.
-	public MemberDAO(ServletContext application) {
-		super(application);
-	}
-	/*
-	사용자가 입력한 아이디, 패스워드를 통해 회원테이블을 select한 후
-	존재하는 정보인 경우 DTO객체에 그 정보를 담아 반환한다.
-	*/
 	public MemberDTO getMemberDTO(String uid, String upass) {
 		
-		//로그인을 위한 쿼리문을 실행한후 회원정보를 저장하기 위해 생성
 		MemberDTO dto = new MemberDTO();
-		//로그인을 위해 인파라미터가 있는 동적 쿼리문 작성
 		String query = "SELECT * FROM member WHERE id=? AND pass=?";
 		
 		try {
@@ -42,12 +28,176 @@ public class MemberDAO extends JDBConnect{
 				dto.setPass(rs.getString("pass"));
 				dto.setName(rs.getString(3));
 				dto.setRegidate(rs.getString(4));
+				dto.setTel(rs.getString(5));
+				dto.setEmail(rs.getString(6));
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		//호출한 지점으로 DTO객체를 반환한다.
 		return dto;
 	}
+	public int insertMember(MemberDTO mdto) {
+		int result = 0;
+
+		try {
+			String query = "insert into member " 
+					+ "(id, pass, name, tel, email) " + "values (?,?,?,?,?)";
+
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, mdto.getId());
+			psmt.setString(2, mdto.getPass());
+			psmt.setString(3, mdto.getName());
+			psmt.setString(4, mdto.getTel());
+			psmt.setString(5, mdto.getEmail()); 
+
+			result = psmt.executeUpdate();
+
+			
+		}
+		catch (Exception e) {
+			System.out.println("게시물 입력 중 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public MemberDTO selectMember(String id) {
+
+		MemberDTO mbto = new MemberDTO();
+		String query = " SELECT id,pass,name,tel,email "
+				+ "	FROM member "
+				+ " WHERE id = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if (rs.next()) { // DTO 객체에 레코드를 저장한다.
+				mbto.setId(rs.getString("id"));
+				mbto.setPass(rs.getString("pass"));
+				mbto.setName(rs.getString("name"));
+				mbto.setTel(rs.getString("tel"));
+				mbto.setEmail(rs.getString("email"));
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("회원정보 진입중 예외발생");
+		}
+		return mbto;
+	}
+	public int updateMember(MemberDTO mdto) {
+		
+		int result = 0;
+		
+		String query = " UPDATE member SET "
+				+ " pass = ? ,name = ? , tel = ?"
+				+ " WHERE id = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			 
+			psmt.setString(1, mdto.getPass());
+			psmt.setString(2, mdto.getName());
+			psmt.setString(3, mdto.getTel());
+			psmt.setString(4, mdto.getId());
+			psmt.executeQuery();
+			
+			result = psmt.executeUpdate();
+		}
+		catch(Exception e) {
+			
+			System.out.println("회원정보 수정중 예외발생");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public MemberDTO selectId(String id) {
+		
+		MemberDTO mbto = new MemberDTO();
+		String query = " SELECT id FROM member WHERE id = ? ";
+		
+		try {
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				mbto.setId(rs.getString("id"));
+				System.out.println(query);
+			}
+		}
+		catch(Exception e) {
+			
+			e.printStackTrace();
+			System.out.println("아이디 중복검사중 예외발생");
+			
+		}
+		
+		return mbto;
+	}
+	public MemberDTO findId(String name, String tel) {
+		MemberDTO dto = new MemberDTO();
+		try {
+			 String query = "SELECT count(*), id FROM member WHERE name=? AND tel=?";
+			psmt = con.prepareStatement(query );
+			psmt.setString(1, name);
+			psmt.setString(2, tel);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				  dto.setName(rs.getString(1));
+		          dto.setId(rs.getString(2));            
+
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	public MemberDTO findPw(String id, String tel) {
+		 MemberDTO dto = new MemberDTO();
+		 String query = "SELECT * FROM member WHERE id=? AND tel=?";
+
+		 try {
+	         psmt = con.prepareStatement(query);
+	         psmt.setString(1, id);
+	         psmt.setString(2, tel);
+	         rs = psmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            dto.setPass(rs.getString(2));
+	         }
+	      }
+	      catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return dto;
+    }
+	public boolean checkId(String id) {
+	      
+	      String query =" select id from member where id = ?";
+	      
+	      try {
+	         psmt = con.prepareStatement(query);
+	         psmt.setString(1, id);
+	         rs= psmt.executeQuery();
+	         
+	         if (rs.next()) {
+	            System.out.println("중복아이디 있음 : " +  rs.getString("id"));
+	            return false;
+	            
+	         }
+	         
+	      }
+	      catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      
+	      System.out.println("중복아이디없음");
+	      return true;
+	   }
+	
 }

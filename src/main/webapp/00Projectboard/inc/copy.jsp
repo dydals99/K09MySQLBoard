@@ -13,7 +13,7 @@
         </div>
         <div class="col-10 text-center">
             Email : whdydals0802@naver.com&nbsp;&nbsp; Mobile :
-            010-4532-8604&nbsp;&nbsp; Address : 서울시 종로구 삼일대로 17길 51 스타골드빌딩 503호 <br />
+            010-4532-8604&nbsp;&nbsp; <a href="../00Projectboard/Location.jsp">오시는길</a> : 서울시 종로구 삼일대로 17길 51 스타골드빌딩 503호 <br />
             copyright &copy; 2022 당근마켓&중고나라. All right reserved.
         </div>
     </div>

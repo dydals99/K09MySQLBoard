@@ -56,11 +56,11 @@
 </context-param>
 <context-param>
 	<param-name>MysqlURL</param-name>
-	<param-value>jdbc:mariadb://localhost:3306/sample_db</param-value>
+	<param-value>jdbc:mariadb://localhost:3307/board_db</param-value>
 </context-param>
 <context-param>
 	<param-name>MysqlId</param-name>
-	<param-value>sample_user</param-value>
+	<param-value>board_user</param-value>
 </context-param>
 <context-param>
 	<param-name>MysqlPwd</param-name>
@@ -90,11 +90,15 @@
   <url-pattern>/*</url-pattern>
 </filter-mapping>
 
-<!-- 게시판 페이징 처리르 위한 파라미터 추가 -->
-<!-- 한 페이지에 출력할 게시물의 갯수 설정 : 10개씩 출력 -->
+<!-- 메인페이제 게시물 4개만 출력하기위한 파라미터 -->
+<context-param>
+	<param-name>PER_PAGE</param-name>
+	<param-value>5</param-value>
+</context-param>
+<!-- 한 블럭당 출력할 페이지번호의 갯수 설정 : 5페이지씩 출력 -->
 <context-param>
 	<param-name>POSTS_PER_PAGE</param-name>
-	<param-value>10</param-value>
+	<param-value>8</param-value>
 </context-param>
 <!-- 한 블럭당 출력할 페이지번호의 갯수 설정 : 5페이지씩 출력 -->
 <context-param>
@@ -145,7 +149,7 @@
 	파라미터는 지역상수라고 할수있다. -->
 	<init-param>
 		<param-name>admin_id</param-name>
-		<param-value>nakja</param-value>
+		<param-value>admin</param-value>
 	</init-param>
 </servlet>
 <servlet-mapping>

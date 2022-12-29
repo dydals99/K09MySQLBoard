@@ -15,7 +15,7 @@ String mysqlId = application.getInitParameter("MysqlId");
 String mysqlPwd = application.getInitParameter("MysqlPwd");
 
 //위 정보를 통해 DAO객체를 생성하고 이때 오라클에 연결된다.
-MemberDAO dao = new MemberDAO(mysqlDriver, mysqlURL, mysqlId, mysqlPwd);
+MemberDAO dao = new MemberDAO();
 //폼값으로 받은 아이디, 패스워드를 인수로 전달하여 로그인 처리를
 //위한 쿼리를 실행한다.
 MemberDTO memberDTO = dao.getMemberDTO(userId, userPwd);

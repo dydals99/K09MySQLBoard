@@ -8,7 +8,6 @@
 <title>회원제 게시판</title>
 </head>
 <body>
-   
     <h2>파일 첨부형 게시판 - 현재 페이지 ${ map.pageNum } </h2>
     <form method="get">  
     <table border="1" width="90%">
