@@ -32,7 +32,7 @@ crossorigin="anonymous"></script>
 		<div class="col-4">
 			<form method="get">
 				<input type="hidden" name="b_flag" value="${ param.b_flag }"/>
-				<div class="input-group ms-2" style="width: 330px;">
+				<div class="input-group ms-5" style="width: 330px;">
 					<select name="searchField" class="form-control" style="width: 100px">
 						<option value="category">카테고리</option>
 						<option value="location">지역</option>
@@ -48,7 +48,8 @@ crossorigin="anonymous"></script>
 			<br>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row d-flex justify-content-center">
+	 
 	<c:choose>
 		<c:when test="${ empty boardLists }">
 		<!-- 게시물을 저장하고 있는 boardLists 컬렉션에 내용이 없다면
@@ -69,7 +70,7 @@ crossorigin="anonymous"></script>
 							${ row.title }</p>
 					</div>
 				<a href="../board/view.do?b_flag=${param.b_flag }&idx=${ row.idx}"
-				class="btn btn-primary">자세히보기</a>
+				class="btn btn-light">자세히보기</a>
 			</div>
 	        </c:forEach>
 		</c:otherwise>

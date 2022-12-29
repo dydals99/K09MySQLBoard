@@ -149,7 +149,6 @@ function deletePost() {
 										<small>${ row.postdate }</small></td>
 								</tr>
 								<tr>
-
 								</tr>
 							</table>
 						</c:forEach>
@@ -157,7 +156,7 @@ function deletePost() {
 				</c:choose>
 				<form method="post"
 					action="../board/comment.do?b_flag=${param.b_flag }&idx=${param.idx}">
-					<input type="hidden" value="${ dto.id }" name="id">
+					<input type="hidden" value="${ sessionScope.UserId }" name="id">
 					<table class="table table-striped" 
 						style="text-align: center; border: 1px solid #dddddd; width: 800px">
 						<tr>

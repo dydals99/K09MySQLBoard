@@ -104,7 +104,7 @@ dao.close();
 							<%=dto.getTitle()%></p>
 					</div>
 				<a href="../board/view.do?b_flag=<%=dto.getB_flag()%>&idx=<%=dto.getIdx()%>"
-				class="btn btn-primary">자세히보기</a>
+				class="btn btn-light">자세히보기</a>
 			</div>
 		<%
 		}

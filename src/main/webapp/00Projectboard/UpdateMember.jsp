@@ -186,7 +186,7 @@ $(function(){
 							<span id="confirm4" class="confirmChar">√</span> 8자이상
 						</div>	
 							<input type="password" name="passwd2" id="passwd2" style="width:520px"
-								class=" form-control" value="<%=dto.getPass()%>"/><br>
+								class=" form-control" value=""/><br>
 						<div class="mb-4">
 							<input type="text" class="form-control" 
 					      		value="<%=dto.getName()%>" name="name" style="width:520px;"> 
